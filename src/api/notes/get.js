@@ -14,8 +14,10 @@ export const main = handler(async (event, context) => {
   };
 
   const result = await dynamoDb.get(params);
-  if (!result.Items) {
-    throw new Error(`User ${event.requestContext.identity.cognitoIdentityId} not found.`);
+  if (!result.Item) {
+    throw new Error(
+      `User ${event.requestContext.identity.cognitoIdentityId} not found.`
+    );
   }
 
   return result.Items;
